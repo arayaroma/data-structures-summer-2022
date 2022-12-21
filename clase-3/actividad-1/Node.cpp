@@ -12,8 +12,7 @@ Node::Node(char data){
   temp->next = NULL;
 }
 
-Node::~Node(){
-  //delete data;
+Node::~Node(){ 
 }
 
 char Node::get_data(){
