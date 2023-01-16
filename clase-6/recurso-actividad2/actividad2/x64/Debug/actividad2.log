@@ -1,0 +1,11 @@
+﻿  east_wall.cpp
+  main.cpp
+  maze.cpp
+D:\UNA\2022\III_Ciclo\Estructuras de datos\Lecciones\S3 - B\recurso-actividad2\actividad2\maze.cpp(90,12): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  north_wall.cpp
+  step_road.cpp
+  south_wall.cpp
+  wall.cpp
+  west_wall.cpp
+  Generando código...
+  actividad2.vcxproj -> D:\UNA\2022\III_Ciclo\Estructuras de datos\Lecciones\S3 - B\recurso-actividad2\x64\Debug\actividad2.exe
