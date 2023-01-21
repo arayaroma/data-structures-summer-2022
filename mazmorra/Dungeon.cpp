@@ -13,11 +13,22 @@
 
 class Cell {
 private:
-  bool _isVisited;
+  bool *_isVisited;
   int pos_x, pos_y;
 
 public:
-  bool isVisited() const { return this->_isVisited; } 
+
+  Cell();
+  Cell(bool *isVisited, int pos_x, int pos_y) { 
+    this->_isVisited = isVisited;
+    this->pos_x = pos_x;
+    this->pos_y = pos_y;
+  }
+
+  ~Cell();
+
+  void setVisited(bool *isVisited) { this->_isVisited = isVisited; }
+  bool *isVisited() const { return this->_isVisited; } 
 
   void setPosition(int pos_x, int pos_y) {
     this->pos_x = pos_x;
@@ -25,16 +36,18 @@ public:
   }
 
   void getPosition(int* pos_x, int* pos_y) const {
-    *pos_x = this->pos_x;
-    *pos_y = this->pos_y;
+    *(pos_x) = this->pos_x;
+    *(pos_y) = this->pos_y;
   }
-
 
 };
 
 class Dungeon {
 private:
   char** dungeonMatrix;
+  bool b_dungeonMatrix;
+  std::stack<bool> visitedCells;
+
 public:
   Dungeon() {
     int i;
@@ -42,6 +55,11 @@ public:
     for(i = 0; i < COLUMNS; i++){
       dungeonMatrix[i] = new char[COLUMNS];
     }
+  }
+
+
+  void depthFirstSearch() { 
+     
   }
 
   void makeEntry() {
