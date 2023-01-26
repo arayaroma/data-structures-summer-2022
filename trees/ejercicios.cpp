@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#define log(x) std::cout << x << std::endl;
 
 class Node {
 private:
@@ -39,7 +39,7 @@ public:
       node = new Node(data);
 
     if (isLower(data, node->getData()))
-      node->setLeft(insertHelper(node->getLeft(),data));
+      node->setLeft(insertHelper(node->getLeft(), data));
 
     if(!isLower(data, node->getData()))
       node->setRight(insertHelper(node->getRight(), data));
@@ -48,24 +48,50 @@ public:
   }
 
   bool isLower(int first, int second) const {
-    return (first <= second);
+    return (first < second);
   } 
 
   bool isEmpty() const { return (root == nullptr); }
 
-  std::list<int> inOrder() {
+  void inOrder() { inOrderHelper(root); }
 
+  void inOrderHelper(Node* node) {
+    if (node == nullptr) return;
+
+    inOrderHelper(node->getLeft());
+    log(node->getData());
+    inOrderHelper(node->getRight());
   }
 
+  void preOrder() { preOrderHelper(root); }
 
+  void preOrderHelper(Node* node) {
+    if (node == nullptr) return;
+
+    log(node->getData());
+    preOrderHelper(node->getLeft());
+    preOrderHelper(node->getRight());
+  }
+
+  void postOrden() { postOrdenHelper(root); }
+
+  void postOrdenHelper(Node* node) {
+    if (node == nullptr) return;
+
+    postOrdenHelper(node->getLeft());
+    postOrdenHelper(node->getRight());
+    log(node->getData());
+  }
 };
 
 int main() {
 
   BinaryTree tree;
   tree.insert(3);
-  tree.insert(6);
-  tree.insert(9);
+  tree.preOrder();
+
+  // tree.insert(6);
+  // tree.insert(9);
 
   return 0;
 }
