@@ -1,82 +1,87 @@
 #include <iostream>
-#define log(x) std::cout << x << std::endl;
+#define log(x) std::cout << x << " ";
 
 class Node {
 private:
   int data;
-  Node* left, *right;
+  Node *left, *right;
 
 public:
-  Node(int data) {
-    this->data = data;
-    left = right = nullptr;
-  }
-  
+  Node(int data) : data(data), left(nullptr), right(nullptr) {}
+
   void setData(int data) { this->data = data; }
   int getData() const { return this->data; }
 
-  void setLeft(Node* left) { this->left = left; }
-  Node* getLeft() const { return this->left; }
+  void setLeft(Node *left) { this->left = left; }
+  Node *getLeft() const { return this->left; }
 
-  void setRight(Node* right) { this->right = right; }
-  Node* getRight() const { return this->right; }
-
+  void setRight(Node *right) { this->right = right; }
+  Node *getRight() const { return this->right; }
 };
-
 
 class BinaryTree {
 private:
- Node* root; 
+  Node *root;
+
 public:
   BinaryTree() { this->root = nullptr; }
 
-  void insert(int data) {
-    root = insertHelper(root, data); 
-  }
+  void insert(int data) { root = insertHelper(root, data); }
+  bool isEmpty(Node *node) const { return (node == nullptr); }
+  bool isLower(int first, int second) const { return (first < second); }
 
-  Node* insertHelper(Node* node, int data) {
-    if (isEmpty())
+  Node *insertHelper(Node *node, int data) {
+    if (isEmpty(node))
       node = new Node(data);
 
-    if (isLower(data, node->getData()))
+    else if (isLower(data, node->getData()))
       node->setLeft(insertHelper(node->getLeft(), data));
 
-    if(!isLower(data, node->getData()))
+    else
       node->setRight(insertHelper(node->getRight(), data));
 
     return node;
   }
 
-  bool isLower(int first, int second) const {
-    return (first < second);
-  } 
+  void inOrder() {
+    log("in-order:");
+    inOrderHelper(root);
+    log("\n");
+  }
 
-  bool isEmpty() const { return (root == nullptr); }
-
-  void inOrder() { inOrderHelper(root); }
-
-  void inOrderHelper(Node* node) {
-    if (node == nullptr) return;
+  void inOrderHelper(Node *node) {
+    if (node == nullptr)
+      return;
 
     inOrderHelper(node->getLeft());
     log(node->getData());
     inOrderHelper(node->getRight());
   }
 
-  void preOrder() { preOrderHelper(root); }
+  void preOrder() {
+    log("pre-order:");
+    preOrderHelper(root);
+    log("\n");
+  }
 
-  void preOrderHelper(Node* node) {
-    if (node == nullptr) return;
+  void preOrderHelper(Node *node) {
+    if (node == nullptr)
+      return;
 
     log(node->getData());
     preOrderHelper(node->getLeft());
     preOrderHelper(node->getRight());
   }
 
-  void postOrden() { postOrdenHelper(root); }
+  void postOrden() {
+    log("post-orden");
+    postOrdenHelper(root);
+    log("\n");
+  }
 
-  void postOrdenHelper(Node* node) {
-    if (node == nullptr) return;
+  void postOrdenHelper(Node *node) {
+    if (node == nullptr)
+      return;
 
     postOrdenHelper(node->getLeft());
     postOrdenHelper(node->getRight());
@@ -87,11 +92,14 @@ public:
 int main() {
 
   BinaryTree tree;
-  tree.insert(3);
+  tree.insert(10);
+  tree.insert(15);
+  tree.insert(20);
+  tree.insert(5);
+  
   tree.preOrder();
-
-  // tree.insert(6);
-  // tree.insert(9);
+  tree.inOrder();
+  tree.postOrden();
 
   return 0;
 }
