@@ -39,6 +39,7 @@ int main() {
   loadGraph(graph);
   graph.printGraph();
 
+  std::cout << "DFS Iterative: ";
   dfsIterative(graph, 0);
 
   return EXIT_SUCCESS;
@@ -46,7 +47,6 @@ int main() {
 
 void dfsIterative(Graph &graph, int startVertex) {
   std::stack<int> stack;
-  std::cout << "DFS Iterative: ";
 
   stack.push(startVertex);
   while (!stack.empty()) {
