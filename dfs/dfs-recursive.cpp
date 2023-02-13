@@ -32,37 +32,27 @@ public:
 };
 
 void loadGraph(Graph &graph);
-void dfsIterative(Graph &graph, int startVertex);
+void dfsRecursive(Graph &graph, int startVertex);
 
 int main() {
   Graph graph(5);
   loadGraph(graph);
   graph.printGraph();
 
-  dfsIterative(graph, 0);
+  std::cout << "DFS Recursive: ";
+  dfsRecursive(graph, 0);
 
   return EXIT_SUCCESS;
 }
 
-void dfsIterative(Graph &graph, int startVertex) {
-  std::stack<int> stack;
-  std::cout << "DFS Iterative: ";
+void dfsRecursive(Graph &graph, int currentVertex) {
+  std::cout << currentVertex << " ";
+  graph.visited[currentVertex] = true;
 
-  stack.push(startVertex);
-  while (!stack.empty()) {
-    int currentVertex = stack.top();
-    stack.pop();
-
-    if (!graph.visited[currentVertex]) {
-      std::cout << currentVertex << " ";
-      graph.visited[currentVertex] = true;
-    }
-
-    for (int i = 0; i < graph.adjList[currentVertex].size(); i++) {
-      int adjacentVertex = graph.adjList[currentVertex][i];
-      if (!graph.visited[adjacentVertex])
-        stack.push(adjacentVertex);
-    }
+  for (int i = 0; i < graph.adjList[currentVertex].size(); i++) {
+    int adjacentVertex = graph.adjList[currentVertex][i];
+    if (!graph.visited[adjacentVertex])
+      dfsRecursive(graph, adjacentVertex);
   }
 }
 
