@@ -32,37 +32,27 @@ public:
 };
 
 void loadGraph(Graph &graph);
-void bfsIterative(Graph &graph, int startVertex);
+void bfsRecursive(Graph &graph, int currentVertex);
 
 int main() {
   Graph graph(54);
   loadGraph(graph);
   graph.printGraph();
 
-  std::cout << "BFS Iterative: ";
-  bfsIterative(graph, 0);
+  std::cout << "BFS Recursive: ";
+  bfsRecursive(graph, 0);
 
   return EXIT_SUCCESS;
 }
 
-void bfsIterative(Graph &graph, int startVertex) {
-  std::queue<int> queue;
+void bfsRecursive(Graph &graph, int currentVertex) {
+  std::cout << currentVertex << " ";
+  graph.visited[currentVertex] = true;
 
-  queue.push(startVertex);
-  while (!queue.empty()) {
-    int currentVertex = queue.front();
-    queue.pop();
-
-    if (!graph.visited[currentVertex]) {
-      std::cout << currentVertex << " ";
-      graph.visited[currentVertex] = true;
-    }
-
-    for (int i = 0; i < graph.adjList[currentVertex].size(); i++) {
-      int adjacentVertex = graph.adjList[currentVertex][i];
-      if (!graph.visited[adjacentVertex])
-        queue.push(adjacentVertex);
-    }
+  for (int i = 0; i < graph.adjList[currentVertex].size(); i++) {
+    int adjacentVertex = graph.adjList[currentVertex][i];
+    if (!graph.visited[adjacentVertex])
+      bfsRecursive(graph, adjacentVertex);
   }
 }
 

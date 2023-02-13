@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stack>
 #include <vector>
 
 class Graph {
