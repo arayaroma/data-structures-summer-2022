@@ -96,7 +96,7 @@ int main() {
   tree.insert(15);
   tree.insert(20);
   tree.insert(5);
-  
+
   tree.preOrder();
   tree.inOrder();
   tree.postOrden();
